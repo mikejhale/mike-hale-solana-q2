@@ -8,7 +8,8 @@ import {
 } from '@solana/web3.js';
 import wallet from '../wba-wallet.json';
 import {
-  createCreateMetadataAccountV2Instruction,
+  CreateMetadataAccountV3Struct,
+  CreateMetadataAccountArgsV3,
   createCreateMetadataAccountV3Instruction,
 } from '@metaplex-foundation/mpl-token-metadata';
 
@@ -41,23 +42,38 @@ const [metadata_pda, _bump] = PublicKey.findProgramAddressSync(
 (async () => {
   try {
     // Start here
-    const meta = createCreateMetadataAccountV3Instruction(
-      {
-        metadata: metadata_pda,
-        mint: mint,
-        mintAuthority: keypair.publicKey,
-        payer: keypair.publicKey,
-        updateAuthority: keypair.publicKey,
-      },
-      {
-        args: {
-          name: 'Mike Hale',
-          symbol: 'MHALE',
-          uri: 'https://mikehale.me/add-file',
+    let tx = new Transaction().add(
+      createCreateMetadataAccountV3Instruction(
+        {
+          metadata: metadata_pda,
+          mint: mint,
+          mintAuthority: keypair.publicKey,
+          payer: keypair.publicKey,
+          updateAuthority: keypair.publicKey,
         },
-      },
-      token_metadata_program_id
+        {
+          createMetadataAccountArgsV3: {
+            data: {
+              name: 'Mike Hale',
+              symbol: 'MHALE',
+              uri: 'https://mikehale.me/add-file',
+              sellerFeeBasisPoints: 100,
+              creators: [
+                { address: keypair.publicKey, verified: true, share: 100 },
+              ],
+              collection: null,
+              uses: null,
+            },
+            isMutable: true,
+            collectionDetails: null,
+          },
+        }
+      )
     );
+
+    // sign
+    let txHash = await sendAndConfirmTransaction(connection, tx, [keypair]);
+    console.log(txHash);
   } catch (e) {
     console.error(`Oops, something went wrong: ${e}`);
   }
