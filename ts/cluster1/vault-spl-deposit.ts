@@ -46,15 +46,15 @@ const provider = new AnchorProvider(connection, new Wallet(keypair), {
 
 const program = new Program<WbaVault>(
   IDL,
-  'G7QyuwYPAcwrJ7p1S86gGbtVPt9A93vUyrMpc5xKEmoA' as Address,
+  'D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o' as Address,
   provider
 );
 
 const vaultState = new PublicKey(
-  'G395BBhEw2Qc6F29kjzwAest28G95pU9CV7iHRgYEkHk'
+  '6zCECf5sr529jSsURZt5aHFp7GK6LiZ6wCHh4W3t4uaR'
 );
-const vaultAuth = new PublicKey('3zAyWhAdgmJdacBjqHCAQWDGKjbX5ukdpZkhNVK9V513');
-const vault = new PublicKey('6KS6rMvHs3SmU4X6raBc856NQb85u3ogUVdD5E4VrCNN');
+const vaultAuth = new PublicKey('82P4TPxUHhCfWA1v1FfTCGFvRJEsCYZvhWHZA7w9Z9SQ');
+const vault = new PublicKey('2b7Hc4otHLX6JPuytZYcutxjNhheji7ANDZkN9R39CXQ');
 const mint = new PublicKey('4XhveW32K81i9jNZ57xLVUEX3m2HguGM1Yz7mEdAHH9K');
 
 (async () => {

@@ -28,7 +28,7 @@ const provider = new AnchorProvider(connection, new Wallet(keypair), {
 
 const program = new Program<WbaVault>(
   IDL,
-  'G7QyuwYPAcwrJ7p1S86gGbtVPt9A93vUyrMpc5xKEmoA' as Address,
+  'D51uEDHLbWAxNfodfQDv7qkp8WZtxrhi3uganGbNos7o' as Address,
   provider
 );
 
